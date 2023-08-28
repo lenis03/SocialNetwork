@@ -180,3 +180,4 @@ cython_debug/
 .idea/SocialMedia.iml
 .idea/inspectionProfiles/profiles_settings.xml
 .idea/inspectionProfiles/Project_Default.xml
+.vscode/extensions.json

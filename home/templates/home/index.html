@@ -5,5 +5,13 @@
 {% endblock %}
 
 {% block content %}
-    <H1>Index...</H1>
+
+    <H1>Index</H1>
+
+    <div class="card">
+        {% for post in posts %}
+            <h3><a href="{{post.get_absolute_url}}" class="card-body">{{ post.title }}</a></h3>
+        {% endfor %}
+    </div>
+
 {% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Post Detail
+{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-body">
+            <h3>{{ post.title }}</h3>
+            <small>by: {{ post.user.username }}</small><br>
+            <small>{{ post.modified|date:"Y-m-D-P" }}</small>
+            <p>{{ post.body }}</p>
+            {% if request.user.id == post.user.id %}
+                <a href="{% url 'home:post_delete' post.id %}" class="btn btn-danger">Delete</a>
+            {% endif %}
+        </div>
+    </div>
+
+
+{% endblock %}
