@@ -8,11 +8,16 @@
     <h2 class="text-center">{{ user.username }}</h2>
     <div class="card">
         <div class="card-body">
-            {% for post in posts%}
-                <h3><a href="{{post.get_absolute_url}}" class="card-body">{{ post.title }}</a></h3>
+            {% for post in posts %}
+                <h3><a href="{{ post.get_absolute_url }}" class="card-body">{{ post.title }}</a></h3>
             {% endfor %}
 
 
         </div>
+    </div>
+    <div>
+        {% if request.user.id == user.id %}
+            <a class="btn btn-primary" href="{% url 'home:post_create' %}">Create</a>
+        {% endif %}
     </div>
 {% endblock %}
