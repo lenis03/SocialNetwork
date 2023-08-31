@@ -43,8 +43,13 @@ class UserLoginView(View):
     form_class = UserLoginForm
     template_name = 'account/login.html'
 
+    def setup(self, request, *args, **kwargs):
+        self.next = request.GET.get('next')
+        return super().setup(request, *args, **kwargs)
+
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
+            messages.info(request, 'You\'re loging now!', 'info')
             return redirect('home:home_page')
         return super().dispatch(request, *args, **kwargs)
 
@@ -65,6 +70,8 @@ class UserLoginView(View):
             if user is not None:
                 login(request, user)
                 messages.success(request, 'logged in successfully', 'success')
+                if self.next:
+                    return redirect(self.next)
                 return redirect('home:home_page')
             else:
                 messages.error(
