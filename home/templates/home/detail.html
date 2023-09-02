@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load crispy_forms_tags %}
 {% block title %}
     Post Detail
 {% endblock %}
@@ -17,6 +17,30 @@
             {% endif %}
         </div>
     </div>
+    <div>
+        {% if request.user.is_authenticated %}
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <input class="btn btn-primary" type="submit" value="Send">
+            </form>
+        {% else %}
+            <p class="alert alert-danger">Only logged in users can comment!</p>
+        {% endif %}
+    </div>
+
+    {% for comment in comments %}
+        <div class="card bg-dark text-white">
+            <p class="card-header">{{ comment.user.username }} | {{ comment.created|timesince }} </p>
+            <p class="card-body">{{ comment.body }}</p>
+        </div>
+    {% empty %}
+        <div class="card bg-dark text-white">
+            <p class="card-header">No comments yet!</p>
+        </div>
+    {% endfor %}
+
+
 
 
 {% endblock %}
