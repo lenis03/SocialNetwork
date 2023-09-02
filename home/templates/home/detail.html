@@ -27,13 +27,27 @@
         {% else %}
             <p class="alert alert-danger">Only logged in users can comment!</p>
         {% endif %}
-    </div>
+    </div><br>
 
     {% for comment in comments %}
         <div class="card bg-dark text-white">
             <p class="card-header">{{ comment.user.username }} | {{ comment.created|timesince }} </p>
             <p class="card-body">{{ comment.body }}</p>
-        </div>
+            {% if request.user.is_authenticated %}
+                <form action="{% url 'home:add_reply' post.id comment.id %}" method="post">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <input class="btn btn-primary" type="submit" value="Reply">
+                </form><br>
+
+            {% endif %}
+            {% with replies=comment.rcomments.all %}
+                {% for reply in replies %}
+                    <p class="bg-primary p-3 m-2">{{ reply.user }} <br> {{ reply.body }}</p>
+                {% endfor %}
+            {% endwith %}
+
+        </div><br>
     {% empty %}
         <div class="card bg-dark text-white">
             <p class="card-header">No comments yet!</p>
