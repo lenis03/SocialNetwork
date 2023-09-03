@@ -36,7 +36,7 @@
             {% if request.user.is_authenticated %}
                 <form action="{% url 'home:add_reply' post.id comment.id %}" method="post">
                     {% csrf_token %}
-                    {{ form|crispy }}
+                    {{ reply_form|crispy }}
                     <input class="btn btn-primary" type="submit" value="Reply">
                 </form><br>
 
