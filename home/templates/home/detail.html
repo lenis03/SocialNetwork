@@ -11,17 +11,29 @@
             <small>by: <a href="{% url 'account:user_profile' post.user.id %}">{{ post.user.username }}</a></small><br>
             <small>{{ post.modified|date:"Y-m-D-P" }}</small>
             <p>{{ post.body }}</p>
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'home:post_like' post.id %}" class=" {% if user_cant_like %} disabled {% endif %} btn btn-outline-danger">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-heart" viewBox="0 0 16 16">
+                        <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"></path>
+                    </svg>
+                    Like{{ post.likes_count }}
+                </a>
+            {% endif %}
             {% if request.user.id == post.user.id %}
                 <a href="{% url 'home:post_delete' post.id %}" class="btn btn-danger">Delete</a>
                 <a href="{% url 'home:post_update' post.id %}" class="btn btn-info">Update</a>
             {% endif %}
+
         </div>
     </div>
     <div>
+        <br>
         {% if request.user.is_authenticated %}
             <form action="" method="post">
                 {% csrf_token %}
                 {{ form|crispy }}
+                <br>
                 <input class="btn btn-primary" type="submit" value="Send">
             </form>
         {% else %}

@@ -6,7 +6,7 @@ from django.utils.text import slugify
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
-from .models import Post, Comment
+from .models import Post, Comment, Like
 from .forms import PostCreateUpdateForm, CommentCreateForm, CommentReplyForm
 
 
@@ -26,11 +26,15 @@ class PostDetailView(View):
 
     def get(self, request, *args, **kwargs):
         comments = self.post_instance.pcomments.filter(is_reply=False)
+        user_cant_like = False
+        if request.user.is_authenticated and self.post_instance.user_cant_like(request.user):
+             user_cant_like=True
         return render(request, 'home/detail.html',
                       {'post': self.post_instance,
                        'comments': comments,
                        'form': self.form_class,
-                       'reply_form': self.form_class_reply
+                       'reply_form': self.form_class_reply,
+                       'user_cant_like': user_cant_like
                        })
 
     @method_decorator(login_required)
@@ -124,4 +128,16 @@ class CommentAddReplyView(LoginRequiredMixin, View):
             reply.is_reply = True
             reply.save()
             messages.success(request, 'You\'re replay submitted successfully', 'success')
+        return redirect('home:post_detail', post.id, post.slug)
+
+
+class PostLikeView(LoginRequiredMixin, View):
+    def get(self, request, post_id):
+        post = get_object_or_404(Post, pk=post_id)
+        like = Like.objects.filter(post=post, user=request.user)
+        if like.exists():
+            messages.error(request, 'You have already liked this post!', 'danger')
+        else:
+            like.create(post=post, user=request.user)
+            messages.success(request, 'You liked this post', 'success')
         return redirect('home:post_detail', post.id, post.slug)
