@@ -7,13 +7,17 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 from .models import Post, Comment, Like
-from .forms import PostCreateUpdateForm, CommentCreateForm, CommentReplyForm
+from .forms import PostCreateUpdateForm, CommentCreateForm, CommentReplyForm, PostSearchForm
 
 
 class HomeView(View):
+    form_class = PostSearchForm
+
     def get(self, request):
         posts = Post.objects.all()
-        return render(request, 'home/index.html', {'posts': posts})
+        if request.GET.get('search'):
+            posts = Post.objects.filter(title__contains=request.GET.get('search'))
+        return render(request, 'home/index.html', {'posts': posts, 'form': self.form_class})
 
 
 class PostDetailView(View):
