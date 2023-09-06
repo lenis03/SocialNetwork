@@ -27,6 +27,7 @@
     <div>
         {% if request.user.id == user.id %}
             <a class="btn btn-primary" href="{% url 'home:post_create' %}">Create</a>
+            <a class="btn btn-primary" href="{% url 'account:edit_profile' %}">Edite Profile</a>
         {% endif %}
     </div>
 {% endblock %}

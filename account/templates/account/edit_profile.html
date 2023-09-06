@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Edit Profile
+{% endblock %}
+
+{% block content %}
+    <form action="" method="POST" class="col-md-6" novalidate>
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input class="btn btn-primary" type="submit" value="Edit">
+    </form>
+    <div>
+
+    </div>
+{% endblock %}
