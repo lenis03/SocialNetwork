@@ -145,3 +145,16 @@ class PostLikeView(LoginRequiredMixin, View):
             like.create(post=post, user=request.user)
             messages.success(request, 'You liked this post', 'success')
         return redirect('home:post_detail', post.id, post.slug)
+
+
+class PostDislikeView(LoginRequiredMixin, View):
+    def get(self, request, post_id):
+        post = get_object_or_404(Post, pk=post_id)
+        like = Like.objects.filter(post=post, user=request.user)
+        if like.exists():
+            like.delete()
+            messages.warning(request, 'you dislike this post ', 'warning')
+        else:
+            messages.error(request, 'You don\'t like this post', 'danger')
+        return redirect('home:post_detail', post.id, post.slug)
+

@@ -10,7 +10,7 @@ class EmailBackend:
                 return user
             return None
 
-        except user.DoesNotExist:
+        except User.DoesNotExist:
             return None
 
     def get_user(self, user_id):

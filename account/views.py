@@ -139,7 +139,7 @@ class UserUnfollowView(LoginRequiredMixin, View):
             relation.delete()
             messages.success(request, 'You Unfollow this user successfully!', 'success')
         else:
-            messages.error('You\'re not following this user!', 'danger')
+            messages.error(request, 'You\'re not following this user!', 'danger')
         return redirect('account:user_profile', user.id)
 
 
@@ -163,3 +163,17 @@ class EditUserProfile(LoginRequiredMixin, View):
             request.user.save()
             messages.success(request, 'You\'re profile edited successfully', 'success')
         return redirect('account:user_profile', request.user.id)
+
+
+class UserFollowingView(LoginRequiredMixin, View):
+    def get(self, request, user_id):
+        user = get_object_or_404(User, pk=user_id)
+        relations = Relation.objects.filter(from_user=user)
+        return render(request, 'account/user_following.html', {'relations': relations})
+
+
+class UserFollowersView(LoginRequiredMixin, View):
+    def get(self, request, user_id):
+        user = get_object_or_404(User, pk=user_id)
+        relations = Relation.objects.filter(to_user=user)
+        return render(request, 'account/user_followers.html', {'relations': relations})

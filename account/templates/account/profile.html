@@ -7,13 +7,13 @@
 {% block content %}
     <div class="text-center">
         <h2 class="text-center">{{ user.username }}</h2>
-        {% if request.user.id != user.id and not is_following %}
-            <a class="btn btn-primary" href="{% url 'account:user_follow' user.id %}">Follow</a>
-        {% elif request.user.id != user.id and is_following %}
-            <button class="btn btn-dark">Following</button>
-            <a class="btn btn-danger" href="{% url 'account:user_unfollow' user.id %}">Unfollow</a>
-        {% endif %}
+        <a class="btn btn-info" href="{% url 'account:user_following' user.id %} ">followings({{ user.followings.all.count }})</a>
+        <a class="btn btn-success" href="{% url 'account:user_followers' user.id %}">followers({{ user.followers.all.count }})</a>
     </div>
+    {% if request.user.id != user.id%}
+        <a class="{% if is_following %}disabled{% endif %} btn btn-primary" href="{% url 'account:user_follow' user.id %}">Follow</a>
+        <a class="{% if not is_following %}disabled{% endif %} btn btn-danger" href="{% url 'account:user_unfollow' user.id %}">Unfollow</a>
+    {% endif %}
 
     <div class="card">
         <div class="card-body">

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Followers
+{% endblock %}
+
+{% block content %}
+    <div class="card">
+        {% for relation in relations %}
+            <h3><a class="card-body"
+                   href="{% url 'account:user_profile' relation.from_user.id %}">{{ relation.from_user.username }}</a>
+            </h3>
+        {% endfor %}
+    </div>
+{% endblock %}
