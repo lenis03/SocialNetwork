@@ -157,4 +157,3 @@ class PostDislikeView(LoginRequiredMixin, View):
         else:
             messages.error(request, 'You don\'t like this post', 'danger')
         return redirect('home:post_detail', post.id, post.slug)
-
