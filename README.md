@@ -75,9 +75,9 @@ Once the server is running, you can use the following URLs to access different p
 - **User Registration:** `http://localhost:8000/account/register/`
 - **User Login:** `http://localhost:8000/account/login/`
 
-## API Endpoints
+## SocialNetwork Urls
 
-### Account Endpoints
+### Account Urls
 
 - `GET /account/register/` - Register a new user
 - `POST /account/register/` - Create a new user
@@ -98,7 +98,7 @@ Once the server is running, you can use the following URLs to access different p
 - `POST /account/password-reset/confirm/<uidb64>/<token>/` - Complete password reset
 - `GET /account/password-reset/complete/` - Password reset complete
 
-### Home Endpoints
+### Home Urls
 
 - `GET /` - List of all posts
 - `GET /post/<int:post_id>/<slug:post_slug>/` - Post detail view
