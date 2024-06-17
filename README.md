@@ -7,12 +7,11 @@ SocialNetwork is a Django-based web application that allows users to register, l
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
-- [API Endpoints](#api-endpoints)
-  - [Account Endpoints](#account-endpoints)
-  - [Home Endpoints](#home-endpoints)
+- [SocialNetwork Urls](#socialnetwork-urls)
+  - [Account Urls](#account-urls)
+  - [Home Urls](#home-urls)
 - [License](#license)
 - [Contributing](#contributing)
-- [URL Configuration](#url-configuration)
 
 ## Features
 
