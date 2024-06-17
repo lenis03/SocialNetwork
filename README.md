@@ -4,17 +4,15 @@ SocialNetwork is a Django-based web application that allows users to register, l
 
 ## Table of Contents
 
-- [SocialNetwork](#socialnetwork)
-  - [Table of Contents](#table-of-contents)
-  - [Features](#features)
-  - [Installation](#installation)
-  - [Usage](#usage)
-  - [API Endpoints](#api-endpoints)
-    - [Account Endpoints](#account-endpoints)
-    - [Home Endpoints](#home-endpoints)
-  - [License](#license)
-  - [Contributing](#contributing)
-  - [URL Configuration](#url-configuration)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [API Endpoints](#api-endpoints)
+  - [Account Endpoints](#account-endpoints)
+  - [Home Endpoints](#home-endpoints)
+- [License](#license)
+- [Contributing](#contributing)
+- [URL Configuration](#url-configuration)
 
 ## Features
 
@@ -116,35 +114,8 @@ Once the server is running, you can use the following URLs to access different p
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Contributing
 
 Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
-
-## URL Configuration
-
-Here is the URL configuration for the account section of the SocialNetwork app:
-
-```python
-from django.urls import path, include
-from django.contrib.auth import views as auth_views
-from . import views
-
-app_name = 'account'
-
-urlpatterns = [
-    path('register/', views.UserRegisterView.as_view(), name='register'),
-    path('login/', views.UserLoginView.as_view(), name='login'),
-    path('logout/', views.UserLogoutView.as_view(), name='logout'),
-    path('profile/<int:user_id>/', views.UserProfileView.as_view(), name='user_profile'),
-    path('edit-profile/', views.EditUserProfile.as_view(), name='edit_profile'),
-    path('follow/<int:user_id>/', views.UserFollowView.as_view(), name='user_follow'),
-    path('unfollow/<int:user_id>/', views.UserUnfollowView.as_view(), name='user_unfollow'),
-    path('following/<int:user_id>/', views.UserFollowingView.as_view(), name='user_following'),
-    path('followers/<int:user_id>/', views.UserFollowersView.as_view(), name='user_followers'),
-    path('password-reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
-    path('password-reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
-    path('password-reset-confirm/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
-    path('password-reset-complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
-]
